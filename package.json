@@ -7,7 +7,8 @@
     "lodash": "^4.17.11",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "vue": "^2.6.7"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,5 +25,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@wix/wix-eventually": "^1.0.454"
+  }
 }

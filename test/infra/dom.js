@@ -1,16 +1,28 @@
-const { unmountComponentAtNode } = require("react-dom");
+const renderVue = Boolean(process.env.VUE);
+const createReactAdapter = require("./dom-adapter/react");
+const createVueAdapter = require("./dom-adapter/vue");
 
-beforeEach(() => {
-  const newBody = document.createElement("body");
-  document.body = newBody;
+module.exports = ({ beforeEach, afterEach }) => {
+  const domAdapter = renderVue ? createVueAdapter() : createReactAdapter();
 
-  const mountPoint = document.createElement("div");
-  mountPoint.id = "root";
+  beforeEach(() => {
+    const newBody = document.createElement("body");
+    document.body = newBody;
 
-  document.body.appendChild(mountPoint);
-});
+    const rootNode = document.createElement("div");
+    rootNode.id = "root";
 
-afterEach(() => {
-  const appDomNode = document.getElementById("root");
-  unmountComponentAtNode(appDomNode);
-});
+    document.body.appendChild(rootNode);
+
+    domAdapter.setup(rootNode);
+  });
+
+  afterEach(() => {
+    const rootNode = document.querySelector("#root");
+    domAdapter.tearDown(rootNode);
+  });
+
+  return {
+    render: todos => domAdapter.render(document.querySelector("#root"), todos)
+  };
+};

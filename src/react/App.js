@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import negate from "lodash/fp/negate";
-import set from "lodash/fp/set";
 import Header from "./Header";
 import Todos from "./Todos";
 import Footer from "./Footer";
-
-const notCompleted = x => !x.completed;
-const filters = {
-  All: () => true,
-  Active: notCompleted,
-  Completed: x => !notCompleted(x)
-};
+import {
+  toggle,
+  toggleAll,
+  rename,
+  remove,
+  countRemaining,
+  filter,
+  add
+} from "../model";
 
 class App extends Component {
   constructor(props) {
@@ -23,48 +23,36 @@ class App extends Component {
 
   toggle(i) {
     this.setState(({ todos }) => ({
-      todos: todos.map((todo, j) => {
-        return i === j ? set(["completed"], !todo.completed, todo) : todo;
-      })
+      todos: toggle(todos, todos[i])
     }));
   }
 
   toggleAll(completed) {
     this.setState(({ todos }) => ({
-      todos: todos.map((todo, j) => {
-        return set(["completed"], completed, todo);
-      })
+      todos: toggleAll(todos, completed)
     }));
   }
 
   rename(i, name) {
     this.setState(({ todos }) => ({
-      todos: todos.map((todo, j) => {
-        return i === j ? set(["name"], name, todo) : todo;
-      })
+      todos: rename(todos, todos[i], name)
     }));
   }
 
   remove(i) {
     this.setState(({ todos }) => ({
-      todos: todos.filter((todo, j) => {
-        return i !== j;
-      })
+      todos: remove(todos, todos[i])
     }));
   }
 
   render() {
     const { todos, activeFilter } = this.state;
-    const filteredTodos = todos.filter(filters[activeFilter]);
-    const remainingItems = todos.filter(notCompleted).length;
+    const filteredTodos = filter(todos, activeFilter);
+    const remainingItems = countRemaining(todos);
     return (
       <section className="todoapp">
         <div>
-          <Header
-            onAdd={name =>
-              this.setState({ todos: [...todos, { name, completed: false }] })
-            }
-          />
+          <Header onAdd={name => this.setState({ todos: add(todos, name) })} />
           {todos.length > 0 && (
             <Todos
               todos={filteredTodos}
