@@ -1,4 +1,3 @@
-import "./base.css";
 import "./index.css";
 import ReactApp from "./react";
 import VueApp from "./vue";

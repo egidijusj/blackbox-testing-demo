@@ -1,16 +1,17 @@
-const classes = el => Array.from(el.classList);
+const { selectors, hasClass } = require("../infra/helpers");
 
 const createFooterDriver = footerComponent => {
-  const get = (s, r = footerComponent) => r.querySelector(s);
-  const clickFilter = filter => get(`.filter-${filter}`).click();
-  const filterActive = filter =>
-    classes(get(`.filter-${filter}`)).includes("selected");
+  const { $ } = selectors(footerComponent);
+  const findButton = filter => $(`.filter-${filter}`);
+  const clickButton = filter => findButton(filter).click();
+  const hasClassSelected = hasClass("selected");
+  const buttonSelected = filter => hasClassSelected(findButton(filter));
   return {
-    active: () => Number(get(".todo-count strong").textContent),
-    clickActive: () => clickFilter("Active"),
-    clickComplete: () => clickFilter("Completed"),
-    clickAll: () => clickFilter("All"),
-    completeActive: () => filterActive("Completed")
+    active: () => Number($(".todo-count strong").textContent),
+    clickActive: () => clickButton("Active"),
+    clickComplete: () => clickButton("Completed"),
+    clickAll: () => clickButton("All"),
+    completeActive: () => buttonSelected("Completed")
   };
 };
 

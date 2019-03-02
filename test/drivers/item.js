@@ -1,19 +1,23 @@
-const setNativeValue = require("../infra/setNativeValue");
-const simulateEvent = require("../infra/simulateEvent");
-const KEYS = require("../infra/keys");
-const classes = el => Array.from(el.classList);
+const {
+  simulateEvent,
+  KEYS,
+  classes,
+  selectors,
+  setInputValue
+} = require("../infra/helpers");
 
 const createItemDriver = itemComponent => {
-  const get = (s, r = itemComponent) => r.querySelector(s);
-  const exists = s => Boolean(get(s));
+  const { $, is } = selectors(itemComponent);
+
   return {
     toggle: () => {
-      get(".toggle", itemComponent).click();
+      $(".toggle", itemComponent).click();
     },
+
     completed: () => classes(itemComponent).includes("completed"),
 
     doubleClick: () => {
-      simulateEvent(get("label", itemComponent), "dblclick");
+      simulateEvent($("label", itemComponent), "dblclick");
     },
 
     editable: () => {
@@ -21,33 +25,33 @@ const createItemDriver = itemComponent => {
     },
 
     rename: text => {
-      const input = get(".edit", itemComponent);
-      setNativeValue(input, text);
+      const input = $(".edit", itemComponent);
+      setInputValue(input, text);
       simulateEvent(input, "input");
       simulateEvent(input, "keypress", KEYS.ENTER);
     },
 
     pressEnter: () => {
-      const input = get(".edit", itemComponent);
+      const input = $(".edit", itemComponent);
       simulateEvent(input, "keydown", KEYS.ENTER);
     },
 
     pressEsc: () => {
-      const input = get(".edit", itemComponent);
+      const input = $(".edit", itemComponent);
       simulateEvent(input, "keydown", KEYS.ESCAPE);
     },
 
     blur: () => {
-      const input = get(".edit", itemComponent);
+      const input = $(".edit", itemComponent);
       simulateEvent(input, "blur");
     },
 
-    showsLabel: () => exists(".toggle"),
+    showsLabel: () => is(".toggle"),
 
-    showsCheckbox: () => exists("label"),
+    showsCheckbox: () => is("label"),
 
     remove: () => {
-      get(".destroy").click();
+      $(".destroy").click();
     }
   };
 };

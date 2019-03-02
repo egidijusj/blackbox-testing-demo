@@ -4,7 +4,7 @@ export default {
     return { input: "" };
   },
   mounted() {
-    setImmediate(() => this.$refs.input.focus(), 0);
+    setImmediate(() => this.$refs.input && this.$refs.input.focus(), 0);
   },
   render(h) {
     const self = this;

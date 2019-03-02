@@ -1,4 +1,6 @@
-const eventually = require("@wix/wix-eventually").with({ timeout: 50 });
+const eventually = require("@wix/wix-eventually").with({
+  timeout: 10
+});
 const setupDom = require("./infra/dom");
 const createTodosDriver = require("./drivers/app");
 
