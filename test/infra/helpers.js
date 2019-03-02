@@ -7,17 +7,8 @@ const defineKey = ({ code, key = code, keyCode, charCode = keyCode }) => ({
 });
 
 const KEYS = {
-  BACKSPACE: defineKey({ code: "Backspace", keyCode: 8 }),
-  DELETE: defineKey({ code: "Delete", keyCode: 46 }),
   ENTER: defineKey({ code: "Enter", keyCode: 13 }),
-  ESCAPE: defineKey({ code: "Escape", keyCode: 27 }),
-  LOWERCASE_A: defineKey({ charCode: 97, code: "KeyA", key: "a", keyCode: 65 }),
-  SPACE: defineKey({ code: "Space", key: " ", keyCode: 32 }),
-  ARROW_UP: defineKey({ code: "ArrowUp", keyCode: 38 }),
-  ARROW_LEFT: defineKey({ code: "ArrowLeft", keyCode: 37 }),
-  ARROW_RIGHT: defineKey({ code: "ArrowRight", keyCode: 39 }),
-  ARROW_DOWN: defineKey({ code: "ArrowDown", keyCode: 40 }),
-  TAB: defineKey({ code: "Tab", keyCode: 9 })
+  ESCAPE: defineKey({ code: "Escape", keyCode: 27 })
 };
 
 const setNativeValue = (element, value) => {
@@ -152,27 +143,26 @@ const selectors = scope => ({
   is: selector => Boolean(scope.querySelector(selector))
 });
 
-const setInputValue = (input, text) => {
-  setNativeValue(input, text);
-  simulateEvent(input, "input");
+const setInputValue = (el, text) => {
+  setNativeValue(el, text);
+  simulateEvent(el, "input");
 };
 
-const enter = input => {
-  simulateEvent(input, "keydown", KEYS.ENTER);
-};
+const enter = el => simulateEvent(el, "keydown", KEYS.ENTER);
 
-const escape = input => {
-  simulateEvent(input, "keydown", KEYS.ESCAPE);
-};
+const escape = el => simulateEvent(el, "keydown", KEYS.ESCAPE);
+
+const blur = el => simulateEvent(el, "blur");
+
+const doubleClick = el => simulateEvent(el, "dblclick");
 
 module.exports = {
-  KEYS,
-  setNativeValue,
-  simulateEvent,
   classes,
   selectors,
   hasClass,
   setInputValue,
   enter,
-  escape
+  escape,
+  blur,
+  doubleClick
 };

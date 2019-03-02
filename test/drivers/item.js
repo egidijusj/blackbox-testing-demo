@@ -1,58 +1,40 @@
 const {
-  simulateEvent,
-  KEYS,
-  classes,
   selectors,
-  setInputValue
+  setInputValue,
+  enter,
+  escape,
+  blur,
+  doubleClick,
+  hasClass
 } = require("../infra/helpers");
 
 const createItemDriver = itemComponent => {
   const { $, is } = selectors(itemComponent);
+  const isCompleted = hasClass("completed");
+  const isEdited = hasClass("editing");
 
   return {
-    toggle: () => {
-      $(".toggle", itemComponent).click();
-    },
+    toggle: () => $(".toggle", itemComponent).click(),
 
-    completed: () => classes(itemComponent).includes("completed"),
+    completed: () => isCompleted(itemComponent),
 
-    doubleClick: () => {
-      simulateEvent($("label", itemComponent), "dblclick");
-    },
+    doubleClick: () => doubleClick($("label", itemComponent)),
 
-    editable: () => {
-      return classes(itemComponent).includes("editing");
-    },
+    editable: () => isEdited(itemComponent),
 
-    rename: text => {
-      const input = $(".edit", itemComponent);
-      setInputValue(input, text);
-      simulateEvent(input, "input");
-      simulateEvent(input, "keypress", KEYS.ENTER);
-    },
+    rename: text => setInputValue($(".edit", itemComponent), text),
 
-    pressEnter: () => {
-      const input = $(".edit", itemComponent);
-      simulateEvent(input, "keydown", KEYS.ENTER);
-    },
+    pressEnter: () => enter($(".edit", itemComponent)),
 
-    pressEsc: () => {
-      const input = $(".edit", itemComponent);
-      simulateEvent(input, "keydown", KEYS.ESCAPE);
-    },
+    pressEsc: () => escape($(".edit", itemComponent)),
 
-    blur: () => {
-      const input = $(".edit", itemComponent);
-      simulateEvent(input, "blur");
-    },
+    blur: () => blur($(".edit", itemComponent)),
 
     showsLabel: () => is(".toggle"),
 
     showsCheckbox: () => is("label"),
 
-    remove: () => {
-      $(".destroy").click();
-    }
+    remove: () => $(".destroy").click()
   };
 };
 

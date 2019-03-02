@@ -23,7 +23,7 @@ export default {
           input: e => {
             self.input = e.target.value;
           },
-          keypress: e => {
+          keydown: e => {
             if (e.key === "Enter") {
               self.input !== "" && self.onAdd(self.input.trim());
               self.input = "";

@@ -11,7 +11,7 @@ export default ({ onAdd }) => {
         placeholder="What needs to be done?"
         value={input}
         onChange={e => setInput(e.target.value)}
-        onKeyPress={e => {
+        onKeyDown={e => {
           if (e.key === "Enter") {
             onAdd(input.trim());
             setInput("");
