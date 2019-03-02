@@ -1,4 +1,4 @@
-const eventually = require("@wix/wix-eventually");
+const eventually = require("@wix/wix-eventually").with({ timeout: 50 });
 const setupDom = require("./infra/dom");
 const createTodosDriver = require("./drivers/app");
 
@@ -235,6 +235,14 @@ describe("Todos", () => {
       await eventually(() => expect(todos.getItems()).toEqual(["B"]));
       todos.footer().clickAll();
       await eventually(() => expect(todos.getItems()).toEqual(["A", "B"]));
+    });
+
+    test("marks clicked filter active", async () => {
+      const todos = setup([{ name: "A", completed: false }]);
+      todos.footer().clickComplete();
+      await eventually(() =>
+        expect(todos.footer().completeActive()).toBeTruthy()
+      );
     });
   });
 });

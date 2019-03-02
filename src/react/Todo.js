@@ -24,6 +24,7 @@ class Todo extends Component {
               onChange={toggle}
             />
           )}
+
           {!editing && (
             <label
               onDoubleClick={() => {
@@ -34,6 +35,7 @@ class Todo extends Component {
               {todo.name}
             </label>
           )}
+
           <button className="destroy" onClick={remove} />
         </div>
         <input

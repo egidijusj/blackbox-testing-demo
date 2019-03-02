@@ -1,23 +1,24 @@
 import Header from "./Header";
 import Todos from "./Todos";
 import Footer from "./Footer";
-import { toggle, toggleAll, add, remove, rename } from "../model";
-
-const notCompleted = x => !x.completed;
-const filters = {
-  All: () => true,
-  Active: notCompleted,
-  Completed: x => !notCompleted(x)
-};
+import {
+  toggle,
+  toggleAll,
+  add,
+  remove,
+  rename,
+  filter,
+  countRemaining
+} from "../model";
 
 export default {
   props: ["todos"],
   computed: {
     remainingItems() {
-      return this.localTodos.filter(notCompleted).length;
+      return countRemaining(this.localTodos);
     },
     filteredTodos() {
-      return this.localTodos.filter(filters[this.activeFilter]);
+      return filter(this.localTodos, this.activeFilter);
     }
   },
   data() {
@@ -65,7 +66,7 @@ export default {
           h(Footer, {
             props: {
               remainingItems: this.remainingItems,
-              activeFilter: "All",
+              activeFilter: this.activeFilter,
               onFilterChange: this.onFilterChange
             }
           })

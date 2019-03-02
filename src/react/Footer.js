@@ -15,16 +15,16 @@ export default ({ remainingItems, activeFilter, onFilterChange }) => (
       {filters.map(filter => (
         <span key={filter}>
           <li>
-            <a
-              href="#/"
+            <span
               className={classnames({
                 selected: activeFilter === filter,
-                [`filter-${filter}`]: true
+                [`filter-${filter}`]: true,
+                btn: true
               })}
               onClick={() => onFilterChange(filter)}
             >
               {filter}
-            </a>
+            </span>
           </li>
           <span> </span>
         </span>

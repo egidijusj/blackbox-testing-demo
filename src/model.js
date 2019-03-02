@@ -1,4 +1,14 @@
 import set from "lodash/fp/set";
+import negate from "lodash/fp/negate";
+
+const completed = x => x.completed;
+const notCompleted = negate(completed);
+
+const filters = {
+  All: () => true,
+  Active: notCompleted,
+  Completed: completed
+};
 
 const modifyInList = (todos, fn) => todo =>
   todos.map(_t => (_t === todo ? fn(todo) : _t));
@@ -16,16 +26,21 @@ const rename = (todos, todo, name) =>
 
 const remove = (todos, todo) => todos.filter(_t => _t !== todo);
 
-const notCompleted = x => !x.completed;
-const filters = {
-  All: () => true,
-  Active: notCompleted,
-  Completed: x => !notCompleted(x)
-};
-
 const filter = (todos, filter) => todos.filter(filters[filter]);
+
 const countRemaining = todos => todos.filter(notCompleted).length;
 
 const add = (todos, name) => [...todos, { name, completed: false }];
 
-export { toggle, toggleAll, rename, remove, filter, countRemaining, add };
+const allCompleted = todos => todos.every(completed);
+
+export {
+  toggle,
+  toggleAll,
+  rename,
+  remove,
+  filter,
+  countRemaining,
+  add,
+  allCompleted
+};

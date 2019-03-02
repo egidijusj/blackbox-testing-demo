@@ -1,7 +1,6 @@
 import React from "react";
 import Todo from "./Todo";
-
-const completed = x => x.completed;
+import { allCompleted } from "../model";
 
 export default ({ todos, toggle, toggleAll, rename, remove }) => (
   <section className="main">
@@ -9,7 +8,7 @@ export default ({ todos, toggle, toggleAll, rename, remove }) => (
       id="toggle-all"
       className="toggle-all"
       type="checkbox"
-      checked={todos.every(completed)}
+      checked={allCompleted(todos)}
       onChange={e => toggleAll(e.target.checked)}
     />
     <label htmlFor="toggle-all" />

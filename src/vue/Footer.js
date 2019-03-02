@@ -5,12 +5,13 @@ const filterTemplate = (h, activeFilter, onClick) => filter =>
   h("span", { key: filter }, [
     h("li", [
       h(
-        "a",
+        "span",
         {
           domProps: { href: "#/" },
           class: classnames({
             selected: activeFilter === filter,
-            [`filter-${filter}`]: true
+            [`filter-${filter}`]: true,
+            btn: true
           }),
           on: {
             click: () => onClick(filter)
