@@ -1,28 +1,31 @@
-const renderVue = Boolean(process.env.VUE);
-const createReactAdapter = require("./dom-adapter/react");
-const createVueAdapter = require("./dom-adapter/vue");
+const renderApp = require('../../src/app').default
 
 module.exports = ({ beforeEach, afterEach }) => {
-  const domAdapter = renderVue ? createVueAdapter() : createReactAdapter();
+  let unmountApp
 
   beforeEach(() => {
-    const newBody = document.createElement("body");
-    document.body = newBody;
+    const newBody = document.createElement("body")
+    document.body = newBody
 
-    const rootNode = document.createElement("div");
-    rootNode.id = "root";
+    const rootNode = document.createElement("div")
+    rootNode.id = "root"
 
-    document.body.appendChild(rootNode);
+    const appNode = document.createElement("div")
+    rootNode.appendChild(appNode)
 
-    domAdapter.setup(rootNode);
-  });
+    document.body.appendChild(rootNode)
+  })
 
   afterEach(() => {
-    const rootNode = document.querySelector("#root");
-    domAdapter.tearDown(rootNode);
-  });
+    unmountApp && unmountApp()
+  })
 
   return {
-    render: todos => domAdapter.render(document.querySelector("#root"), todos)
-  };
-};
+    render: todos => {
+      const rootNode = document.querySelector("#root")
+      const appNode = rootNode.querySelector('div')
+      unmountApp = renderApp(appNode, { todos })
+      return rootNode
+    }
+  }
+}

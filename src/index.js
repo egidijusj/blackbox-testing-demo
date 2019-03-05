@@ -1,15 +1,11 @@
-import "./index.css";
-import ReactApp from "./react";
-import VueApp from "./vue";
-
-const renderVue = window.location.search.includes("vue");
+import "./index.css"
+import renderApp from "./app"
 
 const todos = [
   { name: "code app in react", completed: true },
   { name: "blackbox-test it", completed: true },
-  { name: "rewrite app in vue", completed: renderVue },
+  { name: "rewrite app in vue", completed: false },
   { name: "profit!", completed: false }
-];
+]
 
-const App = renderVue ? VueApp : ReactApp;
-App(document.getElementById("react"), { todos });
+renderApp(document.getElementById("root"), { todos })
