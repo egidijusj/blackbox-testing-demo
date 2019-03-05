@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import Header from "./Header";
-import Todos from "./Todos";
-import Footer from "./Footer";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import Header from "./Header"
+import Todos from "./Todos"
+import Footer from "./Footer"
 import {
   toggle,
   toggleAll,
@@ -10,47 +11,32 @@ import {
   countRemaining,
   filter,
   add
-} from "../model";
+} from "../model"
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      todos: props.todos,
       activeFilter: "All"
-    };
+    }
   }
 
   render() {
-    const { todos, activeFilter } = this.state;
+    const { activeFilter } = this.state
+    const { todos, setTodos } = this.props
+
     return (
       <section className="todoapp">
         <div>
-          <Header onAdd={name => this.setState({ todos: add(todos, name) })} />
+          <Header onAdd={name => setTodos(add(todos, name))} />
 
           {todos.length > 0 && (
             <Todos
               todos={filter(todos, activeFilter)}
-              toggle={i =>
-                this.setState(({ todos }) => ({
-                  todos: toggle(todos, todos[i])
-                }))
-              }
-              toggleAll={completed =>
-                this.setState(({ todos }) => ({
-                  todos: toggleAll(todos, completed)
-                }))
-              }
-              rename={(i, name) =>
-                this.setState(({ todos }) => ({
-                  todos: rename(todos, todos[i], name)
-                }))
-              }
-              remove={i =>
-                this.setState(({ todos }) => ({
-                  todos: remove(todos, todos[i])
-                }))
-              }
+              toggle={i => setTodos(toggle(todos, todos[i]))}
+              toggleAll={completed => setTodos(toggleAll(todos, completed))}
+              rename={(i, name) => setTodos(rename(todos, todos[i], name))}
+              remove={i => setTodos(remove(todos, todos[i]))}
             />
           )}
 
@@ -63,8 +49,15 @@ class App extends Component {
           )}
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    todos: state.todos
+  }),
+  {
+    setTodos: todos => ({ type: "setTodos", todos })
+  }
+)(App)
