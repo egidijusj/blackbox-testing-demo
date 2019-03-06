@@ -44,15 +44,7 @@ export default {
                   }
                 },
                 this.todo.name
-              ),
-            h("button", {
-              class: "destroy",
-              on: {
-                click() {
-                  self.remove()
-                }
-              }
-            })
+              )
           ]
         ),
         h("input", {

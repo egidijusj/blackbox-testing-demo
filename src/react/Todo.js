@@ -35,8 +35,6 @@ class Todo extends Component {
               {todo.name}
             </label>
           )}
-
-          <button className="destroy" onClick={remove} />
         </div>
         <input
           ref={ref => (this.input = ref)}
