@@ -82,7 +82,7 @@ describe("Todos", () => {
       const todos = setup([{ name: "Old todo", completed: true }])
       const item = todos.item(0)
       item.toggle()
-      await (() => expect(item.completed()).toEqual(false))
+      await eventually(() => expect(item.completed()).toEqual(false))
     })
 
     describe("editing", () => {
