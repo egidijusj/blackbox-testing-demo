@@ -26,7 +26,7 @@ const rename = (todos, todo, name) =>
 
 const remove = (todos, todo) => todos.filter(_t => _t !== todo)
 
-const filter = (todos, filter) => todos.filter(filters[filter])
+const filter = (todos, filter) => todos.filter(filters[filter] || filters.All)
 
 const countRemaining = todos => todos.filter(notCompleted).length
 
