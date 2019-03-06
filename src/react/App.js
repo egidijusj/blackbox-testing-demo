@@ -14,16 +14,8 @@ import {
 } from "../model"
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      activeFilter: "All"
-    }
-  }
-
   render() {
-    const { activeFilter } = this.state
-    const { todos, setTodos } = this.props
+    const { todos, activeFilter, setTodos, setActiveFilter } = this.props
 
     return (
       <section className="todoapp">
@@ -43,7 +35,7 @@ class App extends Component {
           {todos.length > 0 && (
             <Footer
               activeFilter={activeFilter}
-              onFilterChange={filter => this.setState({ activeFilter: filter })}
+              onFilterChange={setActiveFilter}
               remainingItems={countRemaining(todos)}
             />
           )}
@@ -55,9 +47,11 @@ class App extends Component {
 
 export default connect(
   state => ({
-    todos: state.todos
+    todos: state.todos,
+    activeFilter: state.filter
   }),
   {
-    setTodos: todos => ({ type: "setTodos", todos })
+    setTodos: todos => ({ type: "setTodos", todos }),
+    setActiveFilter: filter => ({ type: "setFilter", filter })
   }
 )(App)
