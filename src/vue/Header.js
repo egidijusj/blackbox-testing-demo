@@ -1,13 +1,13 @@
 export default {
   props: ["onAdd"],
   data() {
-    return { input: "" };
+    return { input: "" }
   },
   mounted() {
-    setImmediate(() => this.$refs.input && this.$refs.input.focus(), 0);
+    setImmediate(() => this.$refs.input && this.$refs.input.focus(), 0)
   },
   render(h) {
-    const self = this;
+    const self = this
     return h("header", { class: "header" }, [
       h("h1", "todos"),
       h("input", {
@@ -21,16 +21,16 @@ export default {
         ref: "input",
         on: {
           input: e => {
-            self.input = e.target.value;
+            self.input = e.target.value
           },
           keydown: e => {
             if (e.key === "Enter") {
-              self.input !== "" && self.onAdd(self.input.trim());
-              self.input = "";
+              self.input !== "" && self.onAdd(self.input.trim())
+              self.input = ""
             }
           }
         }
       })
-    ]);
+    ])
   }
-};
+}

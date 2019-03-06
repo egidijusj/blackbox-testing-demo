@@ -1,11 +1,11 @@
-const { selectors, hasClass } = require("../infra/helpers");
+const { selectors, hasClass } = require("../infra/helpers")
 
 const createFooterDriver = footerComponent => {
-  const { $ } = selectors(footerComponent);
-  const findButton = filter => $(`.filter-${filter}`);
-  const clickButton = filter => findButton(filter).click();
-  const hasClassSelected = hasClass("selected");
-  const buttonSelected = filter => hasClassSelected(findButton(filter));
+  const { $ } = selectors(footerComponent)
+  const findButton = filter => $(`.filter-${filter}`)
+  const clickButton = filter => findButton(filter).click()
+  const hasClassSelected = hasClass("selected")
+  const buttonSelected = filter => hasClassSelected(findButton(filter))
 
   return {
     active: () => Number($(".todo-count strong").textContent),
@@ -17,7 +17,7 @@ const createFooterDriver = footerComponent => {
     clickAll: () => clickButton("All"),
 
     completeActive: () => buttonSelected("Completed")
-  };
-};
+  }
+}
 
-module.exports = createFooterDriver;
+module.exports = createFooterDriver

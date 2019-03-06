@@ -1,5 +1,5 @@
-import classnames from "classnames";
-const filters = ["All", "Active", "Completed"];
+import classnames from "classnames"
+const filters = ["All", "Active", "Completed"]
 
 const filterTemplate = (h, activeFilter, onClick) => filter =>
   h("span", { key: filter }, [
@@ -20,18 +20,18 @@ const filterTemplate = (h, activeFilter, onClick) => filter =>
         filter
       )
     ])
-  ]);
+  ])
 
 export default {
   props: ["remainingItems", "activeFilter", "onFilterChange"],
   methods: {
     onClick(filter) {
-      this.onFilterChange(filter);
+      this.onFilterChange(filter)
     }
   },
 
   render(h) {
-    const renderFilter = filterTemplate(h, this.activeFilter, this.onClick);
+    const renderFilter = filterTemplate(h, this.activeFilter, this.onClick)
     return h("footer", { class: "footer", key: "footer" }, [
       h("span", { class: "todo-count", key: "footer" }, [
         h("strong", this.remainingItems),
@@ -39,6 +39,6 @@ export default {
         h("span", "items left")
       ]),
       h("ul", { class: "filters" }, filters.map(renderFilter))
-    ]);
+    ])
   }
-};
+}

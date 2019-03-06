@@ -1,6 +1,6 @@
-import React from "react";
-import Todo from "./Todo";
-import { allCompleted } from "../model";
+import React from "react"
+import Todo from "./Todo"
+import { allCompleted } from "../model"
 
 export default ({ todos, toggle, toggleAll, rename, remove }) => (
   <section className="main">
@@ -24,4 +24,4 @@ export default ({ todos, toggle, toggleAll, rename, remove }) => (
       ))}
     </ul>
   </section>
-);
+)

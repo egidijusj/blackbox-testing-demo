@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 export default ({ onAdd }) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState("")
   return (
     <header className="header">
       <h1>todos</h1>
@@ -13,11 +13,11 @@ export default ({ onAdd }) => {
         onChange={e => setInput(e.target.value)}
         onKeyDown={e => {
           if (e.key === "Enter") {
-            onAdd(input.trim());
-            setInput("");
+            onAdd(input.trim())
+            setInput("")
           }
         }}
       />
     </header>
-  );
-};
+  )
+}

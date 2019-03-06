@@ -1,6 +1,6 @@
-import Header from "./Header";
-import Todos from "./Todos";
-import Footer from "./Footer";
+import Header from "./Header"
+import Todos from "./Todos"
+import Footer from "./Footer"
 import {
   toggle,
   toggleAll,
@@ -9,39 +9,39 @@ import {
   rename,
   filter,
   countRemaining
-} from "../model";
+} from "../model"
 
 export default {
   props: ["todos"],
   computed: {
     remainingItems() {
-      return countRemaining(this.localTodos);
+      return countRemaining(this.localTodos)
     },
     filteredTodos() {
-      return filter(this.localTodos, this.activeFilter);
+      return filter(this.localTodos, this.activeFilter)
     }
   },
   data() {
-    return { activeFilter: "All", localTodos: this.todos };
+    return { activeFilter: "All", localTodos: this.todos }
   },
   methods: {
     onFilterChange(filter) {
-      this.activeFilter = filter;
+      this.activeFilter = filter
     },
     toggleAll(completed) {
-      this.localTodos = toggleAll(this.localTodos, completed);
+      this.localTodos = toggleAll(this.localTodos, completed)
     },
     toggle(todo) {
-      this.localTodos = toggle(this.localTodos, todo);
+      this.localTodos = toggle(this.localTodos, todo)
     },
     onAdd(name) {
-      this.localTodos = add(this.localTodos, name);
+      this.localTodos = add(this.localTodos, name)
     },
     remove(todo) {
-      this.localTodos = remove(this.localTodos, todo);
+      this.localTodos = remove(this.localTodos, todo)
     },
     rename(todo, name) {
-      this.localTodos = rename(this.localTodos, todo, name);
+      this.localTodos = rename(this.localTodos, todo, name)
     }
   },
   render(h) {
@@ -71,6 +71,6 @@ export default {
             }
           })
       ])
-    ]);
+    ])
   }
-};
+}

@@ -1,11 +1,11 @@
-const { selectors, setInputValue, enter } = require("../infra/helpers");
-const createItemDriver = require("./item");
-const createFooterDriver = require("./footer");
+const { selectors, setInputValue, enter } = require("../infra/helpers")
+const createItemDriver = require("./item")
+const createFooterDriver = require("./footer")
 
 const createAppDriver = appComponent => {
-  const { $, $$, is } = selectors(appComponent);
-  const items = () => Array.from($$(".todo-list li"));
-  const item = i => items()[i];
+  const { $, $$, is } = selectors(appComponent)
+  const items = () => Array.from($$(".todo-list li"))
+  const item = i => items()[i]
 
   return {
     showsList: () => is(".main"),
@@ -15,9 +15,9 @@ const createAppDriver = appComponent => {
     getInputValue: () => $(".new-todo").value,
 
     type: text => {
-      const input = $(".new-todo");
-      setInputValue(input, text);
-      enter(input);
+      const input = $(".new-todo")
+      setInputValue(input, text)
+      enter(input)
     },
 
     getItems: () => items().map(el => el.textContent),
@@ -31,7 +31,7 @@ const createAppDriver = appComponent => {
     footer: () => createFooterDriver($(".footer")),
 
     inputFocused: () => document.activeElement === $(".new-todo")
-  };
-};
+  }
+}
 
-module.exports = createAppDriver;
+module.exports = createAppDriver

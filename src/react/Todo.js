@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import classnames from "classnames";
+import React, { Component } from "react"
+import classnames from "classnames"
 
 class Todo extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       editing: false,
       value: ""
-    };
+    }
   }
 
   render() {
-    const { todo, toggle, rename, remove } = this.props;
-    const { editing, value } = this.state;
+    const { todo, toggle, rename, remove } = this.props
+    const { editing, value } = this.state
     return (
       <li className={classnames({ completed: todo.completed, editing })}>
         <div className="view">
@@ -28,8 +28,8 @@ class Todo extends Component {
           {!editing && (
             <label
               onDoubleClick={() => {
-                this.setState({ editing: true, value: todo.name });
-                setImmediate(() => this.input && this.input.focus());
+                this.setState({ editing: true, value: todo.name })
+                setImmediate(() => this.input && this.input.focus())
               }}
             >
               {todo.name}
@@ -48,16 +48,16 @@ class Todo extends Component {
           onBlur={() => this.setState({ editing: false })}
           onKeyDown={e => {
             if (e.key === "Enter") {
-              value === "" ? remove() : rename(value);
-              this.setState({ editing: false });
+              value === "" ? remove() : rename(value)
+              this.setState({ editing: false })
             } else if (e.key === "Escape") {
-              this.setState({ editing: false });
+              this.setState({ editing: false })
             }
           }}
         />
       </li>
-    );
+    )
   }
 }
 
-export default Todo;
+export default Todo

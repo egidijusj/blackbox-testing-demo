@@ -1,4 +1,4 @@
-const renderApp = require('../../src/app').default
+const renderApp = require("../../src/app").default
 
 module.exports = ({ beforeEach, afterEach }) => {
   let unmountApp
@@ -23,7 +23,7 @@ module.exports = ({ beforeEach, afterEach }) => {
   return {
     render: todos => {
       const rootNode = document.querySelector("#root")
-      const appNode = rootNode.querySelector('div')
+      const appNode = rootNode.querySelector("div")
       unmountApp = renderApp(appNode, { todos })
       return rootNode
     }

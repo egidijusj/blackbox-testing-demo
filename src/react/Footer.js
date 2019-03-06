@@ -1,7 +1,7 @@
-import React from "react";
-import classnames from "classnames";
+import React from "react"
+import classnames from "classnames"
 
-const filters = ["All", "Active", "Completed"];
+const filters = ["All", "Active", "Completed"]
 
 export default ({ remainingItems, activeFilter, onFilterChange }) => (
   <footer className="footer">
@@ -31,4 +31,4 @@ export default ({ remainingItems, activeFilter, onFilterChange }) => (
       ))}
     </ul>
   </footer>
-);
+)

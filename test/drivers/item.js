@@ -6,12 +6,12 @@ const {
   blur,
   doubleClick,
   hasClass
-} = require("../infra/helpers");
+} = require("../infra/helpers")
 
 const createItemDriver = itemComponent => {
-  const { $, is } = selectors(itemComponent);
-  const isCompleted = hasClass("completed");
-  const isEdited = hasClass("editing");
+  const { $, is } = selectors(itemComponent)
+  const isCompleted = hasClass("completed")
+  const isEdited = hasClass("editing")
 
   return {
     toggle: () => $(".toggle", itemComponent).click(),
@@ -35,7 +35,7 @@ const createItemDriver = itemComponent => {
     showsCheckbox: () => is("label"),
 
     remove: () => $(".destroy").click()
-  };
-};
+  }
+}
 
-module.exports = createItemDriver;
+module.exports = createItemDriver
