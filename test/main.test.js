@@ -85,6 +85,13 @@ describe("Todos", () => {
       await eventually(() => expect(item.completed()).toEqual(false))
     })
 
+    test("allows to mark as active", async () => {
+      const todos = setup([{ name: "Old todo", completed: true }])
+      const item = todos.item(0)
+      item.remove()
+      await eventually(() => expect(todos.getItems()).toEqual([]))
+    })
+
     describe("editing", () => {
       test("shows input on double-click", async () => {
         const todos = setup([{ name: "Old todo" }])
